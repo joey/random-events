@@ -141,13 +141,14 @@ public class CreateEvents {
   private static List<Event> batch;
   private static int batchSize = 0;
   private static int count = 0;
-  private static final Map<String, String> headers = ImmutableMap.of(
-      "flume.avro.schema.url", "hdfs://quickstart.cloudera:8020/datasets/default/events/.metadata/schema.avsc");
+  private static Map<String, String> headers;
 
   public static void main(String[] args) throws IOException {
     CreateEvents createEvents = new CreateEvents();
     host = args[0];
     port = Integer.parseInt(args[1]);
+    headers = ImmutableMap.of("flume.avro.schema.url", args[2]);
+
     client = RpcClientFactory.getDefaultInstance(host, port, 50000);
     batch = new LinkedList<>();
 
